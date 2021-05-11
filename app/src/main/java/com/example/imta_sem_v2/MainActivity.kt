@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 // THIS IS COMMIt
-        //sssssAAAA
+        //sssssAAAAs
 
         val buttonPlay: Button = findViewById(R.id.playButton)
         buttonPlay.setOnClickListener{
