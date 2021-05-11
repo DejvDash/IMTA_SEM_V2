@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMTA_SEM_V2">
+        <activity android:name=".ScoreboardActivity"></activity>
         <activity android:name=".GameActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

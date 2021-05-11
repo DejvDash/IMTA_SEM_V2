@@ -12,9 +12,20 @@ class MainActivity : AppCompatActivity() {
 // THIS IS COMMIt
         //sssssAAAA
 
-        val button: Button = findViewById(R.id.playButton)
-        button.setOnClickListener{
+        val buttonPlay: Button = findViewById(R.id.playButton)
+        buttonPlay.setOnClickListener{
             val i = Intent(this@MainActivity,GameActivity::class.java)
+            startActivity(i)
+        }
+
+        val buttonExit: Button = findViewById(R.id.exitButton)
+        buttonExit.setOnClickListener{
+            finish()
+        }
+
+        val buttonScore: Button = findViewById(R.id.scoreboardButton)
+        buttonScore.setOnClickListener{
+            val i = Intent(this@MainActivity,ScoreboardActivity::class.java)
             startActivity(i)
         }
     }

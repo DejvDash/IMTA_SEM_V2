@@ -1,20 +1,18 @@
 package com.example.imta_sem_v2
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.graphics.Rect
 import android.os.Build
+import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 import kotlin.concurrent.fixedRateTimer
 
 
@@ -66,11 +64,15 @@ class GameActivity : AppCompatActivity() {
     var scoreCount: Int = 0
     var lifeCount: Int = 3
     var shot: Boolean = false;
-    var fixedRateTimerRock = fixedRateTimer(name = "rock-spawner",
-    initialDelay = 1000, period = 2000) {
+    var fixedRateTimerRock = fixedRateTimer(
+        name = "rock-spawner",
+        initialDelay = 1000, period = 2000
+    ) {
     }
-    var fixedRateTimerMissile = fixedRateTimer(name = "rock-spawner",
-        initialDelay = 1000, period = 2000) {
+    var fixedRateTimerMissile = fixedRateTimer(
+        name = "rock-spawner",
+        initialDelay = 1000, period = 2000
+    ) {
     }
     private lateinit var ship: ImageView
     private lateinit var score: TextView
@@ -104,7 +106,11 @@ class GameActivity : AppCompatActivity() {
         missileIMV.x = xFloatMissile
         missileIMV.y = yFloatMissile
         missileIMV.setImageResource(R.drawable.missile)
-        var missileFlight = ObjectAnimator.ofFloat(missileIMV, "translationY", (shipBounds.centerY() - windowManager.currentWindowMetrics.bounds.height()).toFloat()).apply {
+        var missileFlight = ObjectAnimator.ofFloat(
+            missileIMV,
+            "translationY",
+            (shipBounds.centerY() - windowManager.currentWindowMetrics.bounds.height()).toFloat()
+        ).apply {
             duration = 1000
             start()
         }
@@ -113,7 +119,7 @@ class GameActivity : AppCompatActivity() {
             var rocketBounds = Rect()
             missileIMV.getHitRect(rocketBounds)
             var rockIterator = rockList.iterator()
-            if (rocketBounds.top+rocketBounds.height() < windowManager.currentWindowMetrics.bounds.top){
+            if (rocketBounds.top + rocketBounds.height() < windowManager.currentWindowMetrics.bounds.top) {
                 //println(objectBounds.top)
                 //println(windowManager.currentWindowMetrics.bounds.top)
                 // println(objectBounds.left)
@@ -124,14 +130,14 @@ class GameActivity : AppCompatActivity() {
                 //  println(int)
                 //    println("true")
                 gameScreen.removeView(missileIMV)
-              //  println("missile is gone")
+                //  println("missile is gone")
 
-            }else{
-                while (rockIterator.hasNext()){
+            } else {
+                while (rockIterator.hasNext()) {
                     var tmpBounds = Rect()
                     var next = rockIterator.next()
                     next.getHitRect(tmpBounds)
-                    if (rocketBounds.intersect(tmpBounds)){
+                    if (rocketBounds.intersect(tmpBounds)) {
                         // println("it did this")
                         gameScreen.removeView(missileIMV)
                         gameScreen.removeView(next)
@@ -187,7 +193,11 @@ class GameActivity : AppCompatActivity() {
             duration = 2000
             start()
         }
-        var decidingAnim =  ObjectAnimator.ofFloat(rockIMV, "translationY", windowManager.currentWindowMetrics.bounds.bottom.toFloat()-50F).apply {
+        var decidingAnim =  ObjectAnimator.ofFloat(
+            rockIMV,
+            "translationY",
+            windowManager.currentWindowMetrics.bounds.bottom.toFloat() - 50F
+        ).apply {
             duration = 2000
             start()
 
@@ -197,12 +207,12 @@ class GameActivity : AppCompatActivity() {
         decidingAnim.addUpdateListener(AnimatorUpdateListener {
             var objectBounds = Rect()
             rockIMV.getHitRect(objectBounds)
-            if (objectBounds.top > windowManager.currentWindowMetrics.bounds.top){
+            if (objectBounds.top > windowManager.currentWindowMetrics.bounds.top) {
                 //println(objectBounds.top)
                 //println(windowManager.currentWindowMetrics.bounds.top)
                 // println(objectBounds.left)
                 // println(objectBounds.right)
-                if (windowManager.currentWindowMetrics.bounds.bottom < objectBounds.bottom+20){
+                if (windowManager.currentWindowMetrics.bounds.bottom < objectBounds.bottom + 20) {
 
                     //  println("-------------------------------------")
                     //  println(int)
@@ -216,25 +226,34 @@ class GameActivity : AppCompatActivity() {
             var shipBounds = Rect()
             ship.getHitRect(shipBounds)
 
-            if (objectBounds.intersect(shipBounds)){
+            if (objectBounds.intersect(shipBounds)) {
                 gameScreen.removeView(rockIMV)
                 rockList.remove(rockIMV)
                 lifeCount--
                 lives.setText("Lives: $lifeCount")
-                if (lifeCount == 0){
-                  // decidingAnim.cancel()
+                if (lifeCount == 0) {
+                    // decidingAnim.cancel()
                     fixedRateTimerMissile.cancel()
                     fixedRateTimerRock.cancel()
-                   println( ship.visibility)
+                    //println( ship.visibility)
 
-                        showHide(ship)
+                    showHide(ship)
+
+                    //Ulozeni dat do slozky
+                    val directory: File
+                    directory = if (filename.isEmpty()) {
+                        filesDir
+                    } else {
+                        getDir(filename, MODE_PRIVATE)
+                    }
+                    val files = directory.listFiles()
 
                 }
             }
         })
 
     }
-    fun showHide(view:View) {
+    fun showHide(view: View) {
         view.visibility = if (view.visibility == View.VISIBLE){
             View.INVISIBLE
         } else{
@@ -248,14 +267,21 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         gameScreen =  findViewById<RelativeLayout>(R.id.gameScreenView)
-        gameScreen.viewTreeObserver.addOnGlobalLayoutListener { ship.setOnTouchListener(CustomTouchListener(gameScreen.width, gameScreen.height)) }
+        gameScreen.viewTreeObserver.addOnGlobalLayoutListener { ship.setOnTouchListener(
+            CustomTouchListener(
+                gameScreen.width,
+                gameScreen.height
+            )
+        ) }
 
         ship = findViewById<ImageView>(R.id.shipView)
         score = findViewById<TextView>(R.id.score)
         lives = findViewById<TextView>(R.id.life)
 
-         fixedRateTimerRock = fixedRateTimer(name = "rock-spawner",
-            initialDelay = 1000, period = 2000) {
+         fixedRateTimerRock = fixedRateTimer(
+             name = "rock-spawner",
+             initialDelay = 200, period = 500
+         ) {
 
             runOnUiThread {
                 spawnRock()
@@ -263,8 +289,10 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-         fixedRateTimerMissile = fixedRateTimer(name = "missile-spawner",
-            initialDelay = 1000, period = 900) {
+         fixedRateTimerMissile = fixedRateTimer(
+             name = "missile-spawner",
+             initialDelay = 1000, period = 900
+         ) {
 
             runOnUiThread {
                 spawnMissile()
