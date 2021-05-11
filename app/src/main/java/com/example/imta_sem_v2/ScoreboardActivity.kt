@@ -1,33 +1,28 @@
 package com.example.imta_sem_v2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 import java.io.File
-import java.time.LocalDateTime
+
 
 class ScoreboardActivity : AppCompatActivity() {
+    lateinit var LW: ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scoreboard)
+        LW = findViewById(R.id.LWScores)
+        val path = cacheDir.absolutePath
+        var listItems = mutableListOf<String>()
+
+        val file = File("$path/score.txt")
+        file.readLines().forEach(){listItems.add(it)}
+        var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
+        LW.adapter = adapter
 
 
-   /*
-        val path = GameActivity.filesDir.absolutePath
-        val path1 = activity_
-
-
-        val file = File("$path/filename")
-        Log.i("TAG",file.toString())
-
-        file.appendText("Hra: ")
-        file.appendText((LocalDateTime.now()).toString()+" ")
-        file.appendText("Mela skore : $scoreCount \n")
-
-        Log.i("TAG",file.readText())
-        Log.i("TAG",this.filesDir.absolutePath)
-
-    */
 
 
     }

@@ -238,16 +238,15 @@ class GameActivity : AppCompatActivity() {
                 lives.setText("Lives: $lifeCount")
                 if (lifeCount == 0) {
 
-                    pathToGameActivity = this.filesDir.absolutePath
-                    val file = File("$pathToGameActivity/filename")
-                    Log.i("TAG",file.toString())
+                    pathToGameActivity = cacheDir.absolutePath
+                    val file = File("$pathToGameActivity/score.txt")
+
 
                     file.appendText("Hra: ")
                     file.appendText((LocalDateTime.now()).toString()+" ")
                     file.appendText("Mela skore : $scoreCount \n")
 
-                    Log.i("TAG",file.readText())
-                    Log.i("TAG",pathToGameActivity)
+
                     // decidingAnim.cancel()
                     fixedRateTimerMissile.cancel()
                     fixedRateTimerRock.cancel()
