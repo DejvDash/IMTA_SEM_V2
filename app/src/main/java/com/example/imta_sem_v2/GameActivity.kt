@@ -2,9 +2,11 @@ package com.example.imta_sem_v2
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
+import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +15,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
+import java.time.LocalDateTime
 import kotlin.concurrent.fixedRateTimer
 
 
@@ -60,11 +63,14 @@ class GameActivity : AppCompatActivity() {
     //  }
 
 
-
+    //Definice globalnich promennych
     var scoreCount: Int = 0
-    var lifeCount: Int = 3
+    var lifeCount: Int = 1
     var timerPeriod = 1000
     var animPeriod = 2000
+    public lateinit var pathToGameActivity:String
+
+
     var fixedRateTimerRock = fixedRateTimer(
         name = "rock-spawner",
         initialDelay = 1000, period = 2000
@@ -231,22 +237,29 @@ class GameActivity : AppCompatActivity() {
                 lifeCount--
                 lives.setText("Lives: $lifeCount")
                 if (lifeCount == 0) {
+
+                    pathToGameActivity = this.filesDir.absolutePath
+                    val file = File("$pathToGameActivity/filename")
+                    Log.i("TAG",file.toString())
+
+                    file.appendText("Hra: ")
+                    file.appendText((LocalDateTime.now()).toString()+" ")
+                    file.appendText("Mela skore : $scoreCount \n")
+
+                    Log.i("TAG",file.readText())
+                    Log.i("TAG",pathToGameActivity)
                     // decidingAnim.cancel()
                     fixedRateTimerMissile.cancel()
                     fixedRateTimerRock.cancel()
                     //println( ship.visibility)
 
                     showHide(ship)
-/*
-                    //Ulozeni dat do slozky
-                    val directory: File
-                    directory = if (filename.isEmpty()) {
-                        filesDir
-                    } else {
-                        getDir(filename, MODE_PRIVATE)
-                    }
-                    val files = directory.listFiles()
-*/
+
+
+
+
+
+
                 }
             }
         })
@@ -259,6 +272,8 @@ class GameActivity : AppCompatActivity() {
             View.VISIBLE
         }
     }
+
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     override fun onCreate(savedInstanceState: Bundle?) {
         //var shipBounds = Rect()
@@ -298,6 +313,7 @@ class GameActivity : AppCompatActivity() {
 
             }
         }
+
 
 
     }
