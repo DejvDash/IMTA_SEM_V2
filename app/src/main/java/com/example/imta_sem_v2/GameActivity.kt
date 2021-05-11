@@ -63,7 +63,8 @@ class GameActivity : AppCompatActivity() {
 
     var scoreCount: Int = 0
     var lifeCount: Int = 3
-    var shot: Boolean = false;
+    var timerPeriod = 1000
+    var animPeriod = 2000
     var fixedRateTimerRock = fixedRateTimer(
         name = "rock-spawner",
         initialDelay = 1000, period = 2000
@@ -106,12 +107,10 @@ class GameActivity : AppCompatActivity() {
         missileIMV.x = xFloatMissile
         missileIMV.y = yFloatMissile
         missileIMV.setImageResource(R.drawable.missile)
-        var missileFlight = ObjectAnimator.ofFloat(
-            missileIMV,
-            "translationY",
-            (shipBounds.centerY() - windowManager.currentWindowMetrics.bounds.height()).toFloat()
+        var missileFlight = ObjectAnimator.ofFloat(missileIMV, "translationY",
+                (shipBounds.centerY() - windowManager.currentWindowMetrics.bounds.height()).toFloat()
         ).apply {
-            duration = 1000
+            duration = animPeriod.toLong()
             start()
         }
 
@@ -190,7 +189,7 @@ class GameActivity : AppCompatActivity() {
         }
 
         ObjectAnimator.ofFloat(rockIMV, "translationX", xFloatRockToMove).apply {
-            duration = 2000
+            duration = (animPeriod-scoreCount).toLong()
             start()
         }
         var decidingAnim =  ObjectAnimator.ofFloat(
@@ -198,7 +197,7 @@ class GameActivity : AppCompatActivity() {
             "translationY",
             windowManager.currentWindowMetrics.bounds.bottom.toFloat() - 50F
         ).apply {
-            duration = 2000
+            duration = (animPeriod-scoreCount).toLong()
             start()
 
 
@@ -238,7 +237,7 @@ class GameActivity : AppCompatActivity() {
                     //println( ship.visibility)
 
                     showHide(ship)
-
+/*
                     //Ulozeni dat do slozky
                     val directory: File
                     directory = if (filename.isEmpty()) {
@@ -247,7 +246,7 @@ class GameActivity : AppCompatActivity() {
                         getDir(filename, MODE_PRIVATE)
                     }
                     val files = directory.listFiles()
-
+*/
                 }
             }
         })
@@ -280,7 +279,7 @@ class GameActivity : AppCompatActivity() {
 
          fixedRateTimerRock = fixedRateTimer(
              name = "rock-spawner",
-             initialDelay = 200, period = 500
+             initialDelay = 1000, period = timerPeriod.toLong()
          ) {
 
             runOnUiThread {
@@ -291,7 +290,7 @@ class GameActivity : AppCompatActivity() {
 
          fixedRateTimerMissile = fixedRateTimer(
              name = "missile-spawner",
-             initialDelay = 1000, period = 900
+             initialDelay = 1000, period = timerPeriod.toLong()-100
          ) {
 
             runOnUiThread {
