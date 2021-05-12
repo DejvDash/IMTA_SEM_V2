@@ -70,7 +70,7 @@
                     android:layout_height="45dp"
                     android:background="#9E1C40"
                     android:gravity="center"
-                    android:text="U died"
+                    android:text="Game over"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"

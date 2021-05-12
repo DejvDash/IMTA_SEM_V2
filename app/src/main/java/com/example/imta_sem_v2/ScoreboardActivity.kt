@@ -2,6 +2,7 @@ package com.example.imta_sem_v2
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
@@ -22,6 +23,10 @@ class ScoreboardActivity : AppCompatActivity() {
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
         LW.adapter = adapter
 
+        val buttonBack: Button = findViewById(R.id.backButton)
+        buttonBack.setOnClickListener{
+            finish()
+        }
 
 
 

@@ -4,53 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity">
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gameScreenView">
-
-
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="80dp"
-            android:layout_height="32dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="34dp"
-            android:layout_marginRight="34dp"
-            android:text="Score: 0" />
-
-        <TextView
-            android:id="@+id/life"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="49dp"
-            android:layout_marginLeft="49dp"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="165dp"
-            android:layout_marginRight="165dp"
-            android:layout_toStartOf="@+id/score"
-            android:layout_toLeftOf="@+id/score"
-            android:text="Lives: 3" />
-    </RelativeLayout>
+    tools:context=".GameActivity"
+    android:id="@+id/gameScreenView"
+    >
 
     <ImageView
         android:id="@+id/shipView"
         android:layout_width="49dp"
         android:layout_height="107dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/gameScreenView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.972"
-        app:srcCompat="@drawable/rocketfinal"
-        android:visibility="visible"/>
+        app:srcCompat="@drawable/rocketfinal" />
+
+    <TextView
+        android:id="@+id/life"
+        android:layout_width="79dp"
+        android:layout_height="32dp"
+        android:text="Lives: 3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/score"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="92dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="Score: 0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

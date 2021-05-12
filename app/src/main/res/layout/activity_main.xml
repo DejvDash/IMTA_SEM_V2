@@ -49,7 +49,7 @@
         android:id="@+id/scoreboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show best scores"
+        android:text="Scores"
         app:layout_constraintBottom_toTopOf="@+id/exitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
