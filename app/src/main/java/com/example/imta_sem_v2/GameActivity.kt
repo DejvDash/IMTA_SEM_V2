@@ -89,10 +89,6 @@ class GameActivity : AppCompatActivity() {
 
     var rockList: MutableList<ImageView> = mutableListOf<ImageView>()
 
-   // private val gameScreen by lazy{
-    //    findViewById<RelativeLayout>(R.id.gameScreenView)
-  //  }
-
 
     fun spawnMissile(){
         var missileIMV: ImageView = ImageView(this)
