@@ -9,8 +9,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-// THIS IS COMMIt
-        //sssssAAAAs
 
         val buttonPlay: Button = findViewById(R.id.playButton)
         buttonPlay.setOnClickListener{

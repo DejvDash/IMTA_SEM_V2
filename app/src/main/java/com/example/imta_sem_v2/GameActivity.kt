@@ -3,6 +3,7 @@ package com.example.imta_sem_v2
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -92,6 +94,7 @@ class GameActivity : AppCompatActivity() {
     //    findViewById<RelativeLayout>(R.id.gameScreenView)
   //  }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun spawnMissile(){
         var missileIMV: ImageView = ImageView(this)
         gameScreen.addView(missileIMV)
@@ -163,7 +166,8 @@ class GameActivity : AppCompatActivity() {
 
 
     }
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+
+    @RequiresApi(Build.VERSION_CODES.R)
     fun spawnRock(){
 
         var rockIMV: ImageView = ImageView(this)
@@ -240,8 +244,6 @@ class GameActivity : AppCompatActivity() {
 
                     pathToGameActivity = cacheDir.absolutePath
                     val file = File("$pathToGameActivity/score.txt")
-
-
                     file.appendText("Hra: ")
                     file.appendText((LocalDateTime.now()).toString()+" ")
                     file.appendText("Mela skore : $scoreCount \n")
@@ -253,17 +255,20 @@ class GameActivity : AppCompatActivity() {
                     //println( ship.visibility)
 
                     showHide(ship)
+                    //openPopUpWindow()
 
 
 
-
-
+                    val intent = Intent(this@GameActivity, PopUpWindow::class.java)
+                    intent.putExtra("popuptext", "U scored: $scoreCount")
+                    startActivity(intent)
 
                 }
             }
         })
 
     }
+
     fun showHide(view: View) {
         view.visibility = if (view.visibility == View.VISIBLE){
             View.INVISIBLE
@@ -273,7 +278,8 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         //var shipBounds = Rect()
         //  ship.getHitRect(shipBounds)
