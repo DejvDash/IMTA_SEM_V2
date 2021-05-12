@@ -223,8 +223,6 @@ class GameActivity : AppCompatActivity() {
                     file.appendText((LocalDateTime.now()).toString()+" ")
                     file.appendText("End score: $scoreCount \n")
 
-
-
                     fixedRateTimerMissile.cancel()
                     fixedRateTimerRock.cancel()
                     showHide(ship)

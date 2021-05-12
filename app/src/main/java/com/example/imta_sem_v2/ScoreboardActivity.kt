@@ -19,10 +19,11 @@ class ScoreboardActivity : AppCompatActivity() {
         var listItems = mutableListOf<String>()
 
         val file = File("$path/score.txt")
+        if(file.isFile){
         file.readLines().forEach(){listItems.add(it)}
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
         LW.adapter = adapter
-
+        }
         val buttonBack: Button = findViewById(R.id.backButton)
         buttonBack.setOnClickListener{
             finish()
