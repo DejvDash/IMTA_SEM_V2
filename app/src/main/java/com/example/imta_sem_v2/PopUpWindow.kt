@@ -45,6 +45,7 @@ class PopUpWindow : AppCompatActivity() {
     }
     override fun onBackPressed() {
         val i = Intent(this@PopUpWindow, MainActivity::class.java)
-        startActivity(i)
+        finish()
+        //startActivity(i)
     }
 }

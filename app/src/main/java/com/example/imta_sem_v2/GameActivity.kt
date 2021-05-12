@@ -232,6 +232,7 @@ class GameActivity : AppCompatActivity() {
                     val intent = Intent(this@GameActivity, PopUpWindow::class.java)
                     intent.putExtra("popuptext", "Score : $scoreCount")
                     startActivity(intent)
+                    finish()
 
                 }
             }
